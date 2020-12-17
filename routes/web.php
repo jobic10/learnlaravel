@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,10 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{name?}', function ($name = null) {
-    return "Hi $name";
-});
+// Route::get('/{name?}', function ($name = null) {
+//     return "Hi $name";
+// });
 
 Route::get('/user/{name}/{id}', function($name, $id){
     return "Hi $name with id $id";
+});
+
+Route::match(['GET', 'post'], '' ,function(Request $req){
+    return "Hello World";
 });
