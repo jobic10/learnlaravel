@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/{name?}', function ($name = null) {
+    return "Hi $name";
 });
+
+Route::get('/user/{name}/{age}', function($name, $age){
+    return "Hi $name with age $age";
+})->where('name', '[A-z]+')->where('age','[0-9]+');
