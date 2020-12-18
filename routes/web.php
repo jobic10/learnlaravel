@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +22,4 @@ Route::get('/user/{name}/{id}', function($name, $id){
     return "Hi $name with id $id";
 });
 
-Route::match(['GET', 'post'], '' ,function(Request $req){
-    return "Hello World";
-});
+Route::match(['GET', 'post'], '' , [HomeController::class, 'home']);
