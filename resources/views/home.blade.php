@@ -8,6 +8,6 @@
 </head>
 <body>
     <h1>Hello World! My name is {{ $biodata['name'] }}</h1>
-    <x-header name="Lomonbeth"/>
+    <x-header name="Lomonbeth" :biodata="$biodata" />
 </body>
 </html>
