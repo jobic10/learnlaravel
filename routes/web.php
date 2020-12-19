@@ -23,3 +23,4 @@ Route::get('/user/{name}/{id}', function($name, $id){
 });
 
 Route::match(['GET', 'post'], '' , [HomeController::class, 'home']);
+Route::get('data/', [HomeController::class, 'getData']);
