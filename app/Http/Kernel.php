@@ -38,6 +38,10 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'ageCheck' => [
+        \App\Http\Middleware\AgeCheck::class,
+
+        ],
 
         'api' => [
             'throttle:api',
