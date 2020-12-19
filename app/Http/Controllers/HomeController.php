@@ -26,4 +26,16 @@ class HomeController extends Controller
         // $string = Str::of($data)->lower();
         return view('string', compact('string'));
     }
+    public function reg(Request $req){
+        if ($req->method() == 'POST'){
+            $req->validate([
+                'email' => 'required|email',
+                'username' => 'required|min:5',
+                'password' => 'required'
+            ]);
+            echo "Passed validation test";
+        }else{
+            return view('form');
+        }
+    }
 }
