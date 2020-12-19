@@ -33,9 +33,11 @@ class HomeController extends Controller
                 'username' => 'required|min:5',
                 'password' => 'required'
             ]);
-            echo "Passed validation test";
+            $req->session()->put('username', $req->username);
+            echo "Passed validation test ".$req->session()->get('username');
         }else{
             return view('form');
         }
     }
+
 }
