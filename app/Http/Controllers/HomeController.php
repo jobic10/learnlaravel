@@ -36,6 +36,7 @@ class HomeController extends Controller
             $req->session()->put('username', $req->username);
             echo "Passed validation test ".$req->session()->get('username');
         }else{
+            echo session('username');
             return view('form');
         }
     }
