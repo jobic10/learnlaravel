@@ -42,7 +42,7 @@ class HomeController extends Controller
         }
     }
     public function fetchDataFromDatabase(){
-        $data = DB::table('students')->get(['regno', 'firstname', 'lastname']);
+        $data = DB::table('students')->get(['regno', 'firstname', 'lastname'])->where('firstname', '=', 'ABUBAKAR');
         return $data;
     }
 
