@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StudentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,4 +27,7 @@ Route::match(['GET', 'post'], '' , [HomeController::class, 'home']);
 Route::get('data/', [HomeController::class, 'getData']);
 Route::get('string/', [HomeController::class, 'stringPath']);
 Route::match(['GET', 'POST'],'user/reg/', [HomeController::class, 'reg'])->middleware('ageCheck');
-Route::get('/students', [HomeController::class, 'fetchDataFromDatabase']);
+
+Route::group(['prefix' => 'students'], function () {
+    Route::get('', [StudentController::class, 'index'])->name('student.index');
+});
