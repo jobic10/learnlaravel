@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -39,6 +40,10 @@ class HomeController extends Controller
             echo session('username');
             return view('form');
         }
+    }
+    public function fetchDataFromDatabase(){
+        $data = DB::table('students')->get(['regno', 'firstname', 'lastname']);
+        return $data;
     }
 
 }
