@@ -30,4 +30,6 @@ Route::match(['GET', 'POST'],'user/reg/', [HomeController::class, 'reg'])->middl
 
 Route::group(['prefix' => 'students'], function () {
     Route::get('', [StudentController::class, 'index'])->name('student.index');
+    Route::get('create/', [StudentController::class, 'create'])->name('student.create.form');
+    Route::post('create/save', [StudentController::class, 'store'])->name('student.create.save');
 });

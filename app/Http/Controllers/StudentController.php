@@ -26,7 +26,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return view('students.create');
     }
 
     /**
@@ -37,7 +37,16 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'regno' => 'required|min:10|max:10',
+            'firstname' => 'required',
+            'lastname' => 'required',
+        ]);
+        DB::table($this->tableName)->insert([
+            'regno' => $request->regno,
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname
+        ]);
     }
 
     /**
