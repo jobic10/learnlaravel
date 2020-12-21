@@ -64,7 +64,12 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //
+        $student = DB::table($this->tableName)->find($id);
+        if ($student){
+                return "$student->lastname";
+        }else{
+            return abort(404);
+        }
     }
 
     /**
