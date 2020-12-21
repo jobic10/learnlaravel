@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -42,11 +43,17 @@ class StudentController extends Controller
             'firstname' => 'required',
             'lastname' => 'required',
         ]);
+        try{
+
         DB::table($this->tableName)->insert([
             'regno' => $request->regno,
             'firstname' => $request->firstname,
             'lastname' => $request->lastname
         ]);
+        return back()->with('response', 'Created');
+        }catch(Exception $e){
+            return back()->with('response', 'Not Created '. $e->getMessage());
+        }
     }
 
     /**
