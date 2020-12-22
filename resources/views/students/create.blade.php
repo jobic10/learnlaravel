@@ -7,21 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Create Post</h1>
+    <h1>Create Student</h1>
 
-    @if(Session::has('response'))
-    <h4>{{ Session::get('response') }}</h4>
-    @endif
-    <form action="@if($student) {{ route() }} @else{{ route('student.create.save') }}@endif" method="post">
+  <x-header />
+    <form action="@if(isset($student)) {{ route('student.update', ['id' => $student->id]) }} @else{{ route('student.create.save') }}@endif" method="post">
         @csrf
-        <input placeholder="Last name" type="text" name="lastname" id="">
+        <input value="{{ $student->lastname ?? '' }}" placeholder="Last name" type="text" name="lastname" id="">
         @error('lastname')
             {{ $message }}
         @enderror <br>
-        <input type="text" placeholder="First Name" name="firstname" id=""> @error('firstname')
+        <input value="{{ $student->firstname ?? '' }}" type="text" placeholder="First Name" name="firstname" id=""> @error('firstname')
         {{ $message }}
     @enderror <br>
-        <input type="text" name="regno" id="" placeholder="Reg no">@error('regno')
+        <input value="{{ $student->regno ?? '' }}" type="text" name="regno" id="" placeholder="Reg no">@error('regno')
         {{ $message }}
     @enderror <br>
         <input type="submit" value="Submit">

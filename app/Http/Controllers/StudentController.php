@@ -93,7 +93,22 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'regno' => 'required|min:10|max:10',
+            'firstname' => 'required',
+            'lastname' => 'required',
+        ]);
+        try{
+            DB::table($this->tableName)->where('id',$id)->update([
+                'regno' => $request->regno,
+                'firstname' => $request->firstname,
+                'lastname' => $request->lastname
+            ]);
+
+        return back()->with('response', 'Updated');
+        }catch(Exception $e){
+            return back()->with('response', 'Not Updated '. $e->getMessage());
+        }
     }
 
     /**
