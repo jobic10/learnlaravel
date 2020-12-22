@@ -19,7 +19,11 @@
         <td>{{ $student->id }}</td>
         <td>{{ $student->lastname." ".$student->firstname }}</td>
         <td>{{ $student->regno }}</td>
-        <td>{{ $student->id }}</td>
+        <td>
+            <a href="{{ route('student.show', ['id' => $student->id]) }}">View</a>
+            <a href="{{ route('student.show', ['id' => $student->id]) }}">View</a>
+            <a href="{{ route('student.show', ['id' => $student->id]) }}">View</a>
+        </td>
 
     </tr>
 @endforeach

@@ -66,7 +66,7 @@ class StudentController extends Controller
     {
         $student = DB::table($this->tableName)->find($id);
         if ($student){
-                return "$student->lastname";
+                return view('students.view', compact('student'));
         }else{
             return abort(404);
         }
@@ -80,7 +80,8 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $student = DB::table($this->tableName)->find($id);
+        return view('students.create', compact('student'));
     }
 
     /**
@@ -103,6 +104,12 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $student = DB::table($this->tableName)->find($id);
+        if ($student){
+                $student->delete();
+                return back()->with('response', 'Student Deleted');
+        }else{
+            return abort(404);
+        }
     }
 }

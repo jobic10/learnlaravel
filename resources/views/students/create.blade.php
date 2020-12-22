@@ -12,7 +12,7 @@
     @if(Session::has('response'))
     <h4>{{ Session::get('response') }}</h4>
     @endif
-    <form action="{{ route('student.create.save') }}" method="post">
+    <form action="@if($student) {{ route() }} @else{{ route('student.create.save') }}@endif" method="post">
         @csrf
         <input placeholder="Last name" type="text" name="lastname" id="">
         @error('lastname')

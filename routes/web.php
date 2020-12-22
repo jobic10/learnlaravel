@@ -33,4 +33,5 @@ Route::group(['prefix' => 'students'], function () {
     Route::get('create/', [StudentController::class, 'create'])->name('student.create.form');
     Route::post('create/save', [StudentController::class, 'store'])->name('student.create.save');
     Route::get('view/{id}', [StudentController::class, 'show'])->name('student.show');
+    Route::get('delete/{id}', [StudentController::class, 'destroy'])->name('student.delete');
 });
