@@ -99,7 +99,7 @@ class StudentController extends Controller
             'lastname' => 'required',
         ]);
         try{
-            DB::table($this->tableName)->where('id',$id)->update([
+            DB::table($this->tableName)->where('id',$id)->limit(1)->update([
                 'regno' => $request->regno,
                 'firstname' => $request->firstname,
                 'lastname' => $request->lastname
