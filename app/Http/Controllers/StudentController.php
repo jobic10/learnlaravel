@@ -119,7 +119,7 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        $student = DB::table($this->tableName)->find($id);
+        $student = DB::table($this->tableName)->where('id', $id);
         if ($student){
                 $student->delete();
                 return back()->with('response', 'Student Deleted');
