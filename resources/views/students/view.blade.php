@@ -8,9 +8,11 @@
 </head>
 <body>
     <h3>
-        {{ $student->lastname }}
+       Student name : {{ $student->lastname }}
         {{ $student->firstname }}
-        {{ $student->regno }}
+        ({{ $student->regno }})
+       <hr>
+       Supervised by : {{ $student->supervisor }}
     </h3>
 </body>
 </html>

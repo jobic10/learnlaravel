@@ -64,7 +64,18 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        $student = DB::table($this->tableName)->find($id);
+        $student = DB::table($this->tableName)
+        ->join('cpu',$this->tableName.".cpu_id",'=','cpu.id')
+        ->join('supervisors','cpu.supervisor_id','=','supervisors.id')
+        ->select([
+              $this->tableName.'.lastname',
+            $this->tableName.'.firstname',
+          $this->tableName.'.regno',
+            "supervisors.lastname as supervisor"
+            ])
+        ->where($this->tableName.'.id',$id)->get()->first();
+
+        // dd($student);
         if ($student){
                 return view('students.view', compact('student'));
         }else{
