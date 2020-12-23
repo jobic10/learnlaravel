@@ -15,7 +15,7 @@ class StudentController extends Controller
     private $tableName = 'students';
     public function index()
     {
-            $students = Student::all(['id','regno', 'firstname', 'lastname']);
+            $students = Student::paginate(5);//::all(['id','regno', 'firstname', 'lastname']);
             return view('students.index', compact('students'));
     }
 
