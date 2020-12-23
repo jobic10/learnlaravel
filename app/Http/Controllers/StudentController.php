@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Student;
 class StudentController extends Controller
 {
@@ -16,7 +15,7 @@ class StudentController extends Controller
     private $tableName = 'students';
     public function index()
     {
-            $students = DB::table($this->tableName)->get(['id','regno', 'firstname', 'lastname']);
+            $students = Student::all(['id','regno', 'firstname', 'lastname']);
             return view('students.index', compact('students'));
     }
 
@@ -44,12 +43,11 @@ class StudentController extends Controller
             'lastname' => 'required',
         ]);
         try{
-
-        DB::table($this->tableName)->insert([
-            'regno' => $request->regno,
-            'firstname' => $request->firstname,
-            'lastname' => $request->lastname
-        ]);
+        $student = new Student();
+        $student->regno = $request->regno;
+        $student->firstname =  $request->firstname;
+        $student->lastname = $request->lastname;
+        $student->save();
         return back()->with('response', 'Created');
         }catch(Exception $e){
             return back()->with('response', 'Not Created '. $e->getMessage());
@@ -64,8 +62,7 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        $student = DB::table($this->tableName)
-        ->join('cpu',$this->tableName.".cpu_id",'=','cpu.id')
+        $student = Student::join('cpu',$this->tableName.".cpu_id",'=','cpu.id')
         ->join('supervisors','cpu.supervisor_id','=','supervisors.id')
         ->select([
               $this->tableName.'.lastname',
@@ -91,7 +88,7 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        $student = DB::table($this->tableName)->find($id);
+        $student = Student::findOrFail($id);
         return view('students.create', compact('student'));
     }
 
@@ -110,11 +107,12 @@ class StudentController extends Controller
             'lastname' => 'required',
         ]);
         try{
-            DB::table($this->tableName)->where('id',$id)->limit(1)->update([
-                'regno' => $request->regno,
-                'firstname' => $request->firstname,
-                'lastname' => $request->lastname
-            ]);
+            $student = Student::findOrFail($id);
+            if (!$student) return abort(404);
+            $student->regno = $request->regno;
+            $student->firstname =  $request->firstname;
+            $student->lastname = $request->lastname;
+            $student->save();
 
         return back()->with('response', 'Updated');
         }catch(Exception $e){
@@ -130,12 +128,8 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        $student = DB::table($this->tableName)->where('id', $id);
-        if ($student){
+        $student = Student::findOrFail($id);
                 $student->delete();
                 return back()->with('response', 'Student Deleted');
-        }else{
-            return abort(404);
-        }
     }
 }
