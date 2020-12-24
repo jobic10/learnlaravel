@@ -43,8 +43,8 @@ class StudentController extends Controller
             'lastname' => 'required',
             'passport' => 'required|image'
         ]);
-        $path =  ($request->file('passport')->store('passport'));
         try{
+        $path =  ($request->file('passport')->store('passport'));
         $student = new Student();
         $student->regno = $request->regno;
         $student->firstname =  $request->firstname;
