@@ -10,16 +10,19 @@
     @csrf
     <input value="{{ $student->lastname ?? '' }}" placeholder="Last name" type="text" name="lastname" id="">
     @error('lastname')
-    {{ $message }}
+    <span style="color: red"> {{ $message }}</span>
     @enderror <br>
     <input value="{{ $student->firstname ?? '' }}" type="text" placeholder="First Name" name="firstname" id=""> @error('firstname')
-    {{ $message }}
+    <span style="color: red"> {{ $message }}</span>
+
     @enderror <br>
     <input value="{{ $student->regno ?? '' }}" type="text" name="regno" id="" placeholder="Reg no">@error('regno')
-    {{ $message }}
+    <span style="color: red"> {{ $message }}</span>
+
     @enderror <br>
     <input type="file" name="passport" id="">@error('passport')
-    {{ $message }}
+    <span style="color: red"> {{ $message }}</span>
+
     @enderror <br>
     <input type="submit" value="Submit">
 
