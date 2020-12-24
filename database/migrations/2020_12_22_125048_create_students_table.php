@@ -19,6 +19,7 @@ class CreateStudentsTable extends Migration
             $table->string('firstname');
             $table->string('regno')->unique();
             $table->integer('cpu_id')->default(mt_rand(1,8));
+            $table->string('passport')->nullable();
             $table->timestamps();
         });
     }

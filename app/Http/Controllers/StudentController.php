@@ -38,15 +38,18 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'regno' => 'required|min:10|max:10',
+            'regno' => 'required',
             'firstname' => 'required',
             'lastname' => 'required',
+            'passport' => 'required|image'
         ]);
+        $path =  ($request->file('passport')->store('passport'));
         try{
         $student = new Student();
         $student->regno = $request->regno;
         $student->firstname =  $request->firstname;
         $student->lastname = $request->lastname;
+        $student->passport = $path;
         $student->save();
         return back()->with('response', 'Created');
         }catch(Exception $e){
