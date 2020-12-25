@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Payment\Payment;
+
 class StudentController extends Controller
 {
     /**
@@ -134,5 +136,8 @@ class StudentController extends Controller
         $student = Student::findOrFail($id);
                 $student->delete();
                 return back()->with('response', 'Student Deleted');
+    }
+    public function payment(){
+        return Payment::process();
     }
 }

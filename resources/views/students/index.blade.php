@@ -17,7 +17,7 @@
     <td>
         <a href="{{ route('student.show', ['id' => $student->id]) }}">View</a>
         <a href="{{ route('student.edit', ['id' => $student->id]) }}">Update</a>
-        <a href="{{ route('student.delete', ['id' => $student->id]) }}" onclick="return confirm('You sure about this ?')">Delete</a>
+        <a href="{{ route('stud33ent.delete', ['id' => $student->id]) }}" onclick="return confirm('You sure about this ?')">Delete</a>
     </td>
 
 </tr>
