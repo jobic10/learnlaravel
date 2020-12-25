@@ -39,3 +39,7 @@ Route::group(['prefix' => 'students'], function () {
     Route::get('payment/',[StudentController::class, 'payment'] );
     Route::get('mail/',[StudentController::class, 'sendMail'] );
 });
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
