@@ -36,5 +36,6 @@ Route::group(['prefix' => 'students'], function () {
     Route::get('edit/{id}', [StudentController::class, 'edit'])->name('student.edit');
     Route::post('edit/{id}/save', [StudentController::class, 'update'])->name('student.update');
     Route::get('delete/{id}', [StudentController::class, 'destroy'])->name('student.delete');
-    Route::get('payment',[StudentController::class, 'payment'] );
+    Route::get('payment/',[StudentController::class, 'payment'] );
+    Route::get('mail/',[StudentController::class, 'sendMail'] );
 });

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TestMail;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Payment\Payment;
+use Illuminate\Support\Facades\Mail;
 
 class StudentController extends Controller
 {
@@ -139,5 +141,13 @@ class StudentController extends Controller
     }
     public function payment(){
         return Payment::process();
+    }
+    public function sendMail(){
+        $details = [
+            'title' => 'Mail From Laravel',
+            'body' => 'Welcome to Laravel Mail',
+        ];
+        Mail::to('jobowonubi@gmail.com')->send(new TestMail($details));
+        return "Email Sent";
     }
 }
