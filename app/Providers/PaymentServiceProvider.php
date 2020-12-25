@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Payment\Payment;
 
 class PaymentServiceProvider extends ServiceProvider
 {
@@ -14,9 +13,7 @@ class PaymentServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('payment', function(){
-            return new Payment();
-        });
+        $this->app->bind('payment', App\Payment\Payment::class);
     }
 
     /**
