@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\CustomerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,6 +39,10 @@ Route::group(['prefix' => 'students'], function () {
     Route::get('delete/{id}', [StudentController::class, 'destroy'])->name('student.delete');
     Route::get('payment/',[StudentController::class, 'payment'] );
     Route::get('mail/',[StudentController::class, 'sendMail'] );
+});
+
+Route::group(['prefix' => 'customer'], function(){
+    Route::get('',[CustomerController::class, 'index']);
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
