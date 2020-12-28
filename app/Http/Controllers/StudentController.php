@@ -9,6 +9,7 @@ use App\Models\Student;
 use App\Payment\Payment;
 use Illuminate\Support\Facades\Mail;
 use App\Exports\StudentExport;
+use App\Imports\StudentImport;
 use Excel;
 use PDF;
 class StudentController extends Controller
@@ -166,5 +167,16 @@ class StudentController extends Controller
         $students = Student::all();
         $pdf = PDF::loadView('students.all', compact('students'));
         return $pdf->download('students.pdf');
+    }
+    public function uploadCsv(){
+        return view('students.upload');
+    }
+    public function uploadCsvSave(Request $request){
+        // return view('students.upload');
+        $request->validate([
+            'csv' => 'required|mimes:csv,txt|file'
+        ]);
+        Excel::import(new StudentImport, $request->csv);
+        return Student::all();
     }
 }

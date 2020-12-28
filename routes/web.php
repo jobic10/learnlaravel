@@ -41,6 +41,8 @@ Route::group(['prefix' => 'students'], function () {
     Route::get('download-excel/', [StudentController::class, 'downloadAsExcel']);
     Route::get('download-csv/', [StudentController::class, 'downloadAsCsv']);
     Route::get('download-pdf/', [StudentController::class, 'downloadAsPdf']);
+    Route::get('upload/', [StudentController::class, 'uploadCsv']);
+    Route::post('upload/save', [StudentController::class, 'uploadCsvSave'])->name('student.upload.save');
 });
 
 Route::group(['prefix' => 'customer'], function(){
