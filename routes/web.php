@@ -39,6 +39,8 @@ Route::group(['prefix' => 'students'], function () {
     Route::get('delete/{id}', [StudentController::class, 'destroy'])->name('student.delete');
     Route::get('payment/',[StudentController::class, 'payment'] );
     Route::get('mail/',[StudentController::class, 'sendMail'] );
+    Route::get('download-excel/', [StudentController::class, 'downloadAsExcel']);
+    Route::get('download-csv/', [StudentController::class, 'downloadAsCsv']);
 });
 
 Route::group(['prefix' => 'customer'], function(){

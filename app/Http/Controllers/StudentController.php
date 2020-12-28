@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Payment\Payment;
 use Illuminate\Support\Facades\Mail;
-
+use App\Exports\StudentExport;
+use Excel;
 class StudentController extends Controller
 {
     /**
@@ -153,5 +154,11 @@ class StudentController extends Controller
         }catch(Exception $e){
             return "Unknown Error Occured";
         }
+    }
+    public function downloadAsExcel(){
+        return Excel::download(new StudentExport, 'student.xlsx');
+    }
+    public function downloadAsCsv(){
+        return Excel::download(new StudentExport, 'student.csv');
     }
 }
