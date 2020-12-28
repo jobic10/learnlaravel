@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ImageController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +46,10 @@ Route::group(['prefix' => 'students'], function () {
     Route::get('upload/', [StudentController::class, 'uploadCsv']);
     Route::post('upload/save', [StudentController::class, 'uploadCsvSave'])->name('student.upload.save');
 });
+
+Route::get('resize', [ImageController::class, 'resizeImage']);
+Route::post('resize/process', [ImageController::class, 'resizeImageProcess'])->name('resizeImage');
+
 
 Route::group(['prefix' => 'customer'], function(){
     Route::get('',[CustomerController::class, 'index']);
