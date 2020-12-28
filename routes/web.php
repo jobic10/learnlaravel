@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CustomerController;
@@ -41,6 +40,7 @@ Route::group(['prefix' => 'students'], function () {
     Route::get('mail/',[StudentController::class, 'sendMail'] );
     Route::get('download-excel/', [StudentController::class, 'downloadAsExcel']);
     Route::get('download-csv/', [StudentController::class, 'downloadAsCsv']);
+    Route::get('download-pdf/', [StudentController::class, 'downloadAsPdf']);
 });
 
 Route::group(['prefix' => 'customer'], function(){

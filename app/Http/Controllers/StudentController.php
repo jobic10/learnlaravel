@@ -10,6 +10,7 @@ use App\Payment\Payment;
 use Illuminate\Support\Facades\Mail;
 use App\Exports\StudentExport;
 use Excel;
+use PDF;
 class StudentController extends Controller
 {
     /**
@@ -160,5 +161,10 @@ class StudentController extends Controller
     }
     public function downloadAsCsv(){
         return Excel::download(new StudentExport, 'student.csv');
+    }
+    public function downloadAsPdf(){
+        $students = Student::all();
+        $pdf = PDF::loadView('students.all', compact('students'));
+        return $pdf->download('students.pdf');
     }
 }

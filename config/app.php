@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         App\Providers\PaymentServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        \Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -232,8 +233,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Payment' =>  App\Payment\PaymentFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-
-
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];
