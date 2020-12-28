@@ -147,7 +147,11 @@ class StudentController extends Controller
             'title' => 'Mail From Laravel',
             'body' => 'Welcome to Laravel Mail',
         ];
-        Mail::to('jobowonubi@gmail.com')->send(new TestMail($details));
-        return "Email Sent";
+        try{
+            Mail::to('jobowonubi@gmail.com')->send(new TestMail($details));
+            return "Email Sent";
+        }catch(Exception $e){
+            return "Unknown Error Occured";
+        }
     }
 }
