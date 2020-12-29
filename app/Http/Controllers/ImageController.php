@@ -18,4 +18,12 @@ class ImageController extends Controller
         $image_resize->save(public_path($filename));
         return "Uploaded";
     }
+    public function dropZone(Request $request){
+        $image = $request->image;
+        $name = time().$image->extension();
+        $image->move(public_path($name));
+        return response()->json([
+            'success' => $name
+        ]);
+    }
 }

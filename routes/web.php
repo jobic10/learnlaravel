@@ -49,6 +49,7 @@ Route::group(['prefix' => 'students'], function () {
 
 Route::get('resize', [ImageController::class, 'resizeImage']);
 Route::post('resize/process', [ImageController::class, 'resizeImageProcess'])->name('resizeImage');
+Route::post('upload/dropzone/save', [ImageController::class, 'uploadCsvSave'])->name('dropZone');
 
 
 Route::group(['prefix' => 'customer'], function(){
