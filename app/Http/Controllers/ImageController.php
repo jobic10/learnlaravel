@@ -19,9 +19,9 @@ class ImageController extends Controller
         return "Uploaded";
     }
     public function dropZone(Request $request){
-        $image = $request->image;
-        $name = time().$image->extension();
-        $image->move(public_path($name));
+        $image = $request->file;
+        $name = time().".".$image->extension();
+        $image->move(public_path('images'),$name);
         return response()->json([
             'success' => $name
         ]);
