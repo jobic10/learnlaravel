@@ -26,4 +26,7 @@ class ImageController extends Controller
             'success' => $name
         ]);
     }
+    public function gallery(){
+        return view('gallery');
+    }
 }

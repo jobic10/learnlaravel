@@ -50,7 +50,7 @@ Route::group(['prefix' => 'students'], function () {
 Route::get('resize', [ImageController::class, 'resizeImage']);
 Route::post('resize/process', [ImageController::class, 'resizeImageProcess'])->name('resizeImage');
 Route::post('upload/dropzone/save', [ImageController::class, 'dropZone'])->name('dropZone');
-
+Route::get('gallery/', [ImageController::class, 'gallery']);
 
 Route::group(['prefix' => 'customer'], function(){
     Route::get('',[CustomerController::class, 'index']);
