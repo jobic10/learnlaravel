@@ -1,7 +1,7 @@
 <div>
-    @foreach ($biodata as $key => $val)
-        <li>{{ ucfirst($key) }} - {{ $val }}</li>
-    @endforeach
+   @if (Session::has('response'))
+       <h2 style="font-style: italic; font-weight: bold; color:blue">{{ Session::get('response') }}</h2>
+   @endif
+
     <hr/>
-    <h4>All Rights Reserved {{ $name }}</h4>
 </div>

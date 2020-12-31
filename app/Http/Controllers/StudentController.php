@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TestMail;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
+use App\Models\Student;
+use App\Payment\Payment;
+use Illuminate\Support\Facades\Mail;
+use App\Exports\StudentExport;
+use App\Imports\StudentImport;
+use Excel;
+use PDF;
 class StudentController extends Controller
 {
     /**
@@ -16,7 +22,7 @@ class StudentController extends Controller
     private $tableName = 'students';
     public function index()
     {
-            $students = DB::table($this->tableName)->get(['id','regno', 'firstname', 'lastname']);
+            $students = Student::paginate(5);//::all(['id','regno', 'firstname', 'lastname']);
             return view('students.index', compact('students'));
     }
 
@@ -39,17 +45,19 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'regno' => 'required|min:10|max:10',
+            'regno' => 'required',
             'firstname' => 'required',
             'lastname' => 'required',
+            'passport' => 'required|image'
         ]);
         try{
-
-        DB::table($this->tableName)->insert([
-            'regno' => $request->regno,
-            'firstname' => $request->firstname,
-            'lastname' => $request->lastname
-        ]);
+        $path =  ($request->file('passport')->store('passport'));
+        $student = new Student();
+        $student->regno = $request->regno;
+        $student->firstname =  $request->firstname;
+        $student->lastname = $request->lastname;
+        $student->passport = $path;
+        $student->save();
         return back()->with('response', 'Created');
         }catch(Exception $e){
             return back()->with('response', 'Not Created '. $e->getMessage());
@@ -64,9 +72,19 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        $student = DB::table($this->tableName)->find($id);
+        $student = Student::join('cpu',$this->tableName.".cpu_id",'=','cpu.id')
+        ->join('supervisors','cpu.supervisor_id','=','supervisors.id')
+        ->select([
+              $this->tableName.'.lastname',
+            $this->tableName.'.firstname',
+          $this->tableName.'.regno',
+            "supervisors.lastname as supervisor"
+            ])
+        ->where($this->tableName.'.id',$id)->get()->first();
+
+        // dd($student);
         if ($student){
-                return "$student->lastname";
+                return view('students.view', compact('student'));
         }else{
             return abort(404);
         }
@@ -80,7 +98,8 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $student = Student::findOrFail($id);
+        return view('students.create', compact('student'));
     }
 
     /**
@@ -92,7 +111,23 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'regno' => 'required|min:10|max:10',
+            'firstname' => 'required',
+            'lastname' => 'required',
+        ]);
+        try{
+            $student = Student::findOrFail($id);
+            if (!$student) return abort(404);
+            $student->regno = $request->regno;
+            $student->firstname =  $request->firstname;
+            $student->lastname = $request->lastname;
+            $student->save();
+
+        return back()->with('response', 'Updated');
+        }catch(Exception $e){
+            return back()->with('response', 'Not Updated '. $e->getMessage());
+        }
     }
 
     /**
@@ -103,6 +138,45 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $student = Student::findOrFail($id);
+                $student->delete();
+                return back()->with('response', 'Student Deleted');
+    }
+    public function payment(){
+        return Payment::process();
+    }
+    public function sendMail(){
+        $details = [
+            'title' => 'Mail From Laravel',
+            'body' => 'Welcome to Laravel Mail',
+        ];
+        try{
+            Mail::to('jobowonubi@gmail.com')->send(new TestMail($details));
+            return "Email Sent";
+        }catch(Exception $e){
+            return "Unknown Error Occured";
+        }
+    }
+    public function downloadAsExcel(){
+        return Excel::download(new StudentExport, 'student.xlsx');
+    }
+    public function downloadAsCsv(){
+        return Excel::download(new StudentExport, 'student.csv');
+    }
+    public function downloadAsPdf(){
+        $students = Student::all();
+        $pdf = PDF::loadView('students.all', compact('students'));
+        return $pdf->download('students.pdf');
+    }
+    public function uploadCsv(){
+        return view('students.upload');
+    }
+    public function uploadCsvSave(Request $request){
+        // return view('students.upload');
+        $request->validate([
+            'csv' => 'required|mimes:csv,txt|file'
+        ]);
+        Excel::import(new StudentImport, $request->csv);
+        return Student::all();
     }
 }
