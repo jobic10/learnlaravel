@@ -6,9 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
     @yield('style')
+    @yield('script')
 </head>
 <body>
     @yield('content')
 
+    @yield('bottomScript')
 </body>
 </html>

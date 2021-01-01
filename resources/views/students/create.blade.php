@@ -1,9 +1,11 @@
 @extends('main')
 @section('title', ':: Create Student ::')
-
+@section('script')
+<script src="https://cdn.tiny.cloud/1/zcoalni64rhfm3hfq7idsdny6d5cpb1da3w44l1ndlow8usl/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+@endsection
 @section('content')
 
-<h1>Create Student</h1>
+<h1>Create Student - Tiny Mce</h1>
 
 <x-header />
 <form enctype="multipart/form-data" action="@if(isset($student)) {{ route('student.update', ['id' => $student->id]) }} @else{{ route('student.create.save') }}@endif" method="post">
@@ -24,10 +26,25 @@
     <span style="color: red"> {{ $message }}</span>
 
     @enderror <br>
+    <textarea name="address" id="" cols="30" rows="10"></textarea><br>
     <input type="submit" value="Submit">
 
 </form>
+
 </body>
 </html>
 
+@endsection
+
+@section('bottomScript')
+    <script>
+        tinymce.init({
+      selector: 'textarea',
+      plugins: 'a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+      toolbar: 'a11ycheck addcomment showcomments casechange checklist code formatpainter pageembed permanentpen table',
+      toolbar_mode: 'floating',
+      tinycomments_mode: 'embedded',
+      tinycomments_author: 'Author name',
+   });
+    </script>
 @endsection
