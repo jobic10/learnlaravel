@@ -47,7 +47,7 @@
       toolbar: 'a11ycheck addcomment showcomments casechange checklist code formatpainter pageembed permanentpen table',
       toolbar_mode: 'floating',
       tinycomments_mode: 'embedded',
-      tinycomments_author: 'Author name',
+      tinycomments_author: 'Owonubi JOb Sunday',
    });
    function previewFile(input){
        var file = $("input[type=file]").get(0).files[0];
