@@ -38,8 +38,6 @@
 
 </form>
 
-</body>
-</html>
 
 @endsection
 
