@@ -6,6 +6,8 @@
        Student name : {{ $student->lastname }}
         {{ $student->firstname }}
         ({{ $student->regno }})
+        <img src="{{ asset("passport/") }}/{{ $student->passport }}" alt="">
+        {{-- <img src="{{ URL::to("passport/") }}/{{ $student->passport }}" alt=""> --}}
        <hr>
        Supervised by : {{ $student->supervisor }}
     </h3>

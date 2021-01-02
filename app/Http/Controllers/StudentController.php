@@ -51,9 +51,7 @@ class StudentController extends Controller
             'passport' => 'required|image'
         ]);
         try{
-        $passport =  $request->file('passport');
-        $path = time().'.'.$passport->extension();
-        $passport->move(public_path('passport'),$path);
+        $path =  ($request->file('passport')->store('passport'));
         $student = new Student();
         $student->regno = $request->regno;
         $student->firstname =  $request->firstname;
@@ -79,6 +77,7 @@ class StudentController extends Controller
         ->select([
               $this->tableName.'.lastname',
             $this->tableName.'.firstname',
+            $this->tableName.'.passport',
           $this->tableName.'.regno',
             "supervisors.lastname as supervisor"
             ])
