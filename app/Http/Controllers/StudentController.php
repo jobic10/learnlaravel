@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Exports\StudentExport;
 use App\Imports\StudentImport;
 use Excel;
+use Illuminate\Support\Facades\Storage;
 use PDF;
 class StudentController extends Controller
 {
@@ -126,6 +127,7 @@ class StudentController extends Controller
                 $request->validate(['passport' => 'required|image']);
                 $new_path =  ($request->file('passport')->store('passport'));
                 $student->passport = $new_path;
+                Storage::delete($old_path);
             }
             $student->regno = $request->regno;
             $student->firstname =  $request->firstname;
