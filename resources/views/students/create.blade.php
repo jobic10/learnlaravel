@@ -29,7 +29,7 @@
     @enderror <br>
     <img id="preview">
     <br>
-    <textarea name="address" id="" cols="30" rows="10"></textarea><br>
+    {{-- <textarea name="address" id="" cols="30" rows="10"></textarea><br> --}}
     <input type="submit" value="Submit">
 
 </form>
