@@ -23,11 +23,11 @@
     <span style="color: red"> {{ $message }}</span>
 
     @enderror <br>
-    <input type="file" onchange="previewFile(this)" name="passport" id="">@error('passport')
+    <input type="file" src="" onchange="previewFile(this)" name="passport" id="">@error('passport')
     <span style="color: red"> {{ $message }}</span>
 
     @enderror <br>
-    <img id="preview">
+    <img id="preview" @if (isset($student)) src="{{ URL::to($student->passport)  }}"@endif>
     <br>
     {{-- <textarea name="address" id="" cols="30" rows="10"></textarea><br> --}}
     <input type="submit" value="Submit">
