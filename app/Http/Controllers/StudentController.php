@@ -112,14 +112,21 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $student = Student::findOrFail($id);
+        if (!$student) return abort(404);
         $request->validate([
             'regno' => 'required|min:10|max:10',
             'firstname' => 'required',
             'lastname' => 'required',
-        ]);
+            ]);
+
         try{
-            $student = Student::findOrFail($id);
-            if (!$student) return abort(404);
+            if ($request->file('passport')){
+                $old_path = $student->passport;
+                $request->validate(['passport' => 'required|image']);
+                $new_path =  ($request->file('passport')->store('passport'));
+                $student->passport = $new_path;
+            }
             $student->regno = $request->regno;
             $student->firstname =  $request->firstname;
             $student->lastname = $request->lastname;
