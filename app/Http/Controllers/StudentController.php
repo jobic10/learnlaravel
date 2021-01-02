@@ -51,14 +51,16 @@ class StudentController extends Controller
             'passport' => 'required|image'
         ]);
         try{
-        $path =  ($request->file('passport')->store('passport'));
+        $passport =  $request->file('passport');
+        $path = time().'.'.$passport->extension();
+        $passport->move(public_path('passport'),$path);
         $student = new Student();
         $student->regno = $request->regno;
         $student->firstname =  $request->firstname;
         $student->lastname = $request->lastname;
         $student->passport = $path;
         $student->save();
-        return back()->with('response', 'Created');
+        return back()->with('response', 'Student Profile Created');
         }catch(Exception $e){
             return back()->with('response', 'Not Created '. $e->getMessage());
         }
