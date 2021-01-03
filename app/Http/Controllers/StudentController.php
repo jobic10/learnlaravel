@@ -189,4 +189,10 @@ class StudentController extends Controller
         Excel::import(new StudentImport, $request->csv);
         return Student::all();
     }
+    public function contact(){
+        return view('students.help');
+    }
+    public function contactSave(Request $request){
+        return view('students.help');
+    }
 }
