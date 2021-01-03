@@ -3,7 +3,7 @@
 
 @section('content')
     <h3>Contact Us</h3>
-    <form action="" method="post">
+    <form action="{{ route('student.contact.save') }}" method="post">
         @csrf
         <table border='1'>
             <tr>

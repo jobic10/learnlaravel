@@ -46,7 +46,7 @@ Route::group(['prefix' => 'students'], function () {
     Route::get('upload/', [StudentController::class, 'uploadCsv']);
     Route::post('upload/save', [StudentController::class, 'uploadCsvSave'])->name('student.upload.save');
     Route::get('contact/', [StudentController::class, 'contact'])->name('student.contact');
-    Route::get('contact/', [StudentController::class, 'contactSave'])->name('student.contact.save');
+    Route::post('contact/process/', [StudentController::class, 'contactSave'])->name('student.contact.save');
 });
 
 Route::get('resize', [ImageController::class, 'resizeImage']);
