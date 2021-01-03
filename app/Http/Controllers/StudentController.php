@@ -208,4 +208,7 @@ class StudentController extends Controller
         return back()->with('response', 'Thanks for your feedback!');
 
     }
+    public function test(){
+        return splitName("Owonubi Job");
+    }
 }
