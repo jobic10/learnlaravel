@@ -10,6 +10,7 @@ use App\Payment\Payment;
 use Illuminate\Support\Facades\Mail;
 use App\Exports\StudentExport;
 use App\Imports\StudentImport;
+use App\Mail\ContactMail;
 use Excel;
 use Illuminate\Support\Facades\Storage;
 use PDF;
@@ -193,6 +194,17 @@ class StudentController extends Controller
         return view('students.help');
     }
     public function contactSave(Request $request){
-        return view('students.help');
+        $request->validate([
+            'name' => 'required|min:5',
+            'email' => 'required|email',
+            'message' => 'required|min:10'
+        ]);
+        $details = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'message' => $request->message
+        ];
+        Mail::to('jobowonubi@gmail.com')->send(new ContactMail($details));
+        return back()->with('response', "Message Sent!");
     }
 }
