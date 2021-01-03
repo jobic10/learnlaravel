@@ -1,5 +1,5 @@
 @extends('main')
-@section('title', ':: View Specific Student ::')
+@section('title', ':: Student Contact Us Form ::')
 
 @section('content')
     <h3>Contact Us</h3>
