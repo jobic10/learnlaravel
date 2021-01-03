@@ -8,15 +8,28 @@
         <table border='1'>
             <tr>
                 <th>Name</th>
-                <td><input type="text" name="name" id=""></td>
+                <td>
+                    <input type="text" name="name" id="">
+                    @error('name')
+                        {{ $message }}
+                    @enderror
+                </td>
             </tr>
             <tr>
                 <th>Email</th>
-                <td><input type="email" name="email" id=""></td>
+                <td>
+                    <input type="email" name="email" id="">
+                    @error('email')
+                        {{ $message }}
+                    @enderror</td>
             </tr>
             <tr>
                 <th>Message</th>
-                <td><input type="text" name="message" id=""></td>
+                <td>
+                    <input type="text" name="message" id="">
+                    @error('message')
+                        {{ $message }}
+                    @enderror</td>
             </tr>
             <tr>
                 <td colspan="2"><input type="submit" value='Submit'></td>
