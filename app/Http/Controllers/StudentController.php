@@ -205,6 +205,7 @@ class StudentController extends Controller
             'message' => $request->message
         ];
         Mail::to('jobowonubi@gmail.com')->send(new ContactMail($details));
-        return back()->with('response', "Message Sent!");
+        return back()->with('response', 'Thanks for your feedback!');
+
     }
 }
