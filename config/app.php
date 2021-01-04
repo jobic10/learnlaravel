@@ -165,6 +165,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         \Barryvdh\DomPDF\ServiceProvider::class,
         \Intervention\Image\ImageServiceProvider::class,
+        \Yajra\DataTables\DataTablesServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -236,6 +237,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Image' => \Intervention\Image\Facades\Image::class,
+        'DataTable' => \Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];
