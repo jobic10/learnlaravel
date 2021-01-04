@@ -211,4 +211,12 @@ class StudentController extends Controller
     public function test(){
         return splitName("Owonubi Job");
     }
+    public function search(){
+        return view('students.search');
+    }
+    public function autoComplete(Request $request){
+
+        $result = Student::select(['lastname', 'firstname'])->where("lastname", "LIKE", "%{$request->search}%")->get();
+        return response()->json($result);
+    }
 }
