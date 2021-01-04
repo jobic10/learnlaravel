@@ -50,6 +50,7 @@ Route::group(['prefix' => 'students'], function () {
     Route::get('contact/', [StudentController::class, 'contact'])->name('student.contact');
     Route::post('contact/process/', [StudentController::class, 'contactSave'])->name('student.contact.save');
     Route::get('test/', [StudentController::class, 'test']);
+    Route::get('download/', [StudentController::class, 'zipFile']);
 });
 
 Route::get('resize', [ImageController::class, 'resizeImage']);
