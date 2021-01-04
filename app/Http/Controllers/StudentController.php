@@ -14,6 +14,9 @@ use App\Mail\ContactMail;
 use Excel;
 use Illuminate\Support\Facades\Storage;
 use PDF;
+use ZipArchive;
+use Illuminate\Support\Facades\File;
+
 class StudentController extends Controller
 {
     /**
@@ -218,5 +221,18 @@ class StudentController extends Controller
 
         $result = Student::select(['lastname', 'firstname'])->where("lastname", "LIKE", "%{$request->search}%")->get();
         return response()->json($result);
+    }
+    public function zipFile(){
+        $zip = new ZipArchive;
+        $fileName = 'passports.zip';
+        if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE){
+            $files = File::files(public_path('passport'));
+            foreach($files as $key => $value){
+                $relativeNameInZipFile = basename($value);
+                $zip->addFile($value, $relativeNameInZipFile);
+            }
+            $zip->close();
+        }
+        return response()->download(public_path($fileName));
     }
 }
