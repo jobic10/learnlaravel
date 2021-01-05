@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
 use PDF;
 use ZipArchive;
 use Illuminate\Support\Facades\File;
+use App\DataTables\StudentDataTable;
 
 class StudentController extends Controller
 {
@@ -25,6 +26,7 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     private $tableName = 'students';
+
     public function index()
     {
             $students = Student::paginate(5);//::all(['id','regno', 'firstname', 'lastname']);
@@ -234,5 +236,9 @@ class StudentController extends Controller
             $zip->close();
         }
         return response()->download(public_path($fileName));
+    }
+    public function dataTable(StudentDataTable $dataTable)
+    {
+            return $dataTable->render('students.dt');
     }
 }
